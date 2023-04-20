@@ -162,7 +162,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/new_med"
+                "$ref": "#/components/schemas/med_meds"
               }
             }
           }
@@ -693,7 +693,62 @@
             "example": 400
           }
         }
+      },
+      "delete_medication": {
+        "type": "object", 
+        "properties": {
+          "user_id": { "type": "integer" },
+          "med_id": { "type": "integer" }
+        }
+      },
+      "edit_medication": {
+        "type": "object",
+        "properties": {
+          "id": {"type": "integer", "nullable": false},
+          "name": {"type": "string", "nullable": false },
+          "dosage": {"type": "string", "nullable": true },
+          "frequency": {"type": "string", "nullable": true },
+          "date": {"type": "string", "nullable": true },
+          "day": {"type": "string", "nullable": true },
+          "benefits": {"type": "string", "nullable": true },
+          "side_effects": {"type": "string", "nullable": true },
+          "start_date": {"type": "string", "nullable": true },
+          "stop_date": {"type": "string", "nullable": true },
+          "reason_stopped": {"type": "string", "nullable": true },
+          "is_current": {"type": "boolean", "nullable": false },
+          "morning": {"type": "boolean", "nullable": true },
+          "midday": {"type": "boolean", "nullable": true },
+          "evening": {"type": "boolean", "nullable": true },
+          "night": {"type": "boolean", "nullable": true },
+          "user_id": {"type": "integer", "nullable": true}
+        }
       }
+      "meds_medication": {
+        "type": "object", 
+        "properties": {
+          "user_id": { "type": "integer" }
+        }
+      },
+      "new_medication": {
+        "type": "object", 
+        "properties": {
+          "name": {"type": "string", "nullable": false },
+          "dosage": {"type": "string", "nullable": true },
+          "frequency": {"type": "string", "nullable": true },
+          "date": {"type": "string", "nullable": true },
+          "day": {"type": "string", "nullable": true },
+          "benefits": {"type": "string", "nullable": true },
+          "side_effects": {"type": "string", "nullable": true },
+          "start_date": {"type": "string", "nullable": true },
+          "stop_date": {"type": "string", "nullable": true },
+          "reason_stopped": {"type": "string", "nullable": true },
+          "is_current": {"type": "boolean", "nullable": false },
+          "morning": {"type": "boolean", "nullable": true },
+          "midday": {"type": "boolean", "nullable": true },
+          "evening": {"type": "boolean", "nullable": true },
+          "night": {"type": "boolean", "nullable": true },
+        }
+      },
     }
   },
   "servers": [
