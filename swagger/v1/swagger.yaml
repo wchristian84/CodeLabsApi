@@ -12,23 +12,7 @@
           "Medications"
         ],
         "description": "Creates and stores a new medication. Only 'name' and 'is_current' are required.",
-        "parameters": [
-          "name: string",
-          "dosage: string",
-          "frequency: string",
-          "date: string",
-          "day: string",
-          "benefits: string",
-          "side_effects: string",
-          "start_date: string",
-          "stop_date: string",
-          "reason_stopped: string",
-          "is_current: boolean",
-          "morning: boolean",
-          "midday: boolean",
-          "evening: boolean",
-          "night: boolean",
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "description": "successful",
@@ -91,9 +75,7 @@
           "Medications"
         ],
         "description": "Retrieves a list of all of a user's stored medications.",
-        "parameters": [
-          "user_id: integer"
-        ],
+        "parameters": [],
         "responses": {
           "200": {
             "content": {
@@ -171,20 +153,87 @@
     },
     "/api/v1/medications/delete": {
       "delete": {
-        "summary": "delete medication",
+        "summary": "Deletes a medication",
+        "tags": [
+          "Medications"
+        ],
+        "description": "Deletes a medication from a user's stored medications.",
+        "parameters": [],
         "responses": {
           "200": {
-            "description": "successful"
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "success": true,
+                    "payload": "Medication successfully deleted."
+                  },
+                  "status": 200
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Error: Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/unauthenticated_user"
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/delete_med"
+              }
+            }
           }
         }
       }
     },
     "/api/v1/medications/edit": {
       "patch": {
-        "summary": "edit medication",
+        "summary": "Edits a medication",
+        "tags": [
+          "Medications"
+        ],
+        "description": "Updates an existing medication with edited values.",
+        "parameters": [],
         "responses": {
           "200": {
-            "description": "successful"
+            "description": "successful",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "example": {
+                    "success": true,
+                    "payload": {
+                      "name": "Ibuprofen",
+                      "is_current": false,
+                      "dosage": "30 mg",
+                      "frequency": "daily",
+                      "date": "",
+                      "day": "",
+                      "morning": false,
+                      "midday": true,
+                      "evening": false,
+                      "night": false,
+                      "benefits": "Reduces pain",
+                      "side_effects": "Upsets my stomach",
+                      "start_date": "May 2021",
+                      "stop_date": "Spring 2023",
+                      "reason_stopped": "",
+                      "id": 5,
+                      "user_id": 21
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
