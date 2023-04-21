@@ -11,7 +11,7 @@
          "tags": [
           "Medications"
         ],
-        "description": "Creates and stores a new medication. Only 'name' and 'is_current' are required."
+        "description": "Creates and stores a new medication. Only 'name' and 'is_current' are required.",
         "parameters": [
           "name: string",
           "dosage: string",
