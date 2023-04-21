@@ -162,7 +162,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/med_meds"
+                "$ref": "#/components/schemas/meds_med"
               }
             }
           }
@@ -694,14 +694,14 @@
           }
         }
       },
-      "delete_medication": {
+      "delete_med": {
         "type": "object", 
         "properties": {
           "user_id": { "type": "integer" },
           "med_id": { "type": "integer" }
         }
       },
-      "edit_medication": {
+      "edit_med": {
         "type": "object",
         "properties": {
           "id": {"type": "integer", "nullable": false},
@@ -723,13 +723,13 @@
           "user_id": {"type": "integer", "nullable": true}
         }
       }
-      "meds_medication": {
+      "meds_med": {
         "type": "object", 
         "properties": {
           "user_id": { "type": "integer" }
         }
       },
-      "new_medication": {
+      "new_med": {
         "type": "object", 
         "properties": {
           "name": {"type": "string", "nullable": false },
