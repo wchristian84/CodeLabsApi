@@ -28,18 +28,14 @@ module PracticeApi
     end
 
     def self.destroy(params)
-      user = User.find(params[:user_id])
-      medication = user.medications.find(params[:med_id])
+      medication = Medication.find(params[:med_id])
       if medication
         return ServiceContract.error('Error deleting medication') unless medication.destroy
         ServiceContract.success(payload: "Medication successfully deleted")
-      else
-        return ServiceContract.error("Medication doesn't exist for current user")
       end
     end
 
     def self.edit_med(params)
-      user = User.find(params[:user_id])
       editedMed = Medication.find(params[:id])
       if editedMed
         editedMed.update(
@@ -67,10 +63,11 @@ module PracticeApi
     end
 
     def self.return_meds(user_id)
+    
       user = User.find_by(id: user_id)
       user_meds = user.medications.all
-
-      return ServiceContract.error("Error retrieving medications") unless user_meds
+      
+      return ServiceContract.error("Error retrieving medications") unless user_meds.size > 1
       ServiceContract.success(user_meds)
     end
   end

@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.0.0",
   "info": {
     "title": "Base API V1",
     "version": "v1"
@@ -7,51 +7,27 @@
   "paths": {
     "/api/v1/medications/new": {
       "post": {
-        "summary": "Add new medication",
-         "tags": [
+        "summary": "new medication",
+        "tags": [
           "Medications"
         ],
-        "description": "Creates and stores a new medication. Only 'name' and 'is_current' are required.",
+        "description": "Creates a new medication record",
+        "security": [
+          {
+            "bearer_auth": []
+          }
+        ],
         "parameters": [],
         "responses": {
           "200": {
-            "description": "successful",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "example": {
-                    "success": true,
-                    "payload": {
-                      "name": "Ibuprofen",
-                      "is_current": true,
-                      "dosage": "30 mg",
-                      "frequency": "daily",
-                      "date": "",
-                      "day": "",
-                      "morning": false,
-                      "midday": true,
-                      "evening": false,
-                      "night": true,
-                      "benefits": "Reduces pain",
-                      "side_effects": "Upsets my stomach",
-                      "start_date": "May 2021",
-                      "stop_date": "",
-                      "reason_stopped": "",
-                      "id": 5,
-                      "user_id": 21
-                    }
-                  },
-                  "status": 200
-                }
-              }
-            }
+            "description": "success"
           },
           "401": {
-            "description": "Error: Unauthorized",
+            "description": "authentication failed",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/unauthenticated_user"
+                  "$ref": "#/components/schemas/bad_credentials"
                 }
               }
             }
@@ -61,7 +37,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/new_med"
+                "$ref": "#/components/schemas/new_medication"
               }
             }
           }
@@ -70,81 +46,27 @@
     },
     "/api/v1/medications/meds": {
       "get": {
-        "summary": "Gets user's medications",
+        "summary": "meds medication",
         "tags": [
           "Medications"
         ],
-        "description": "Retrieves a list of all of a user's stored medications.",
-        "parameters": [],
+        "description": "Retrieves user's stored medications",
+        "security": [
+          {
+            "bearer_auth": []
+          }
+        ],
         "responses": {
           "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "example": {
-                    "success": true,
-                    "payload": {
-                      [{                    
-                      "name": "Ibuprofen",
-                      "is_current": true,
-                      "dosage": "30 mg",
-                      "frequency": "daily",
-                      "date": "",
-                      "day": "",
-                      "morning": false,
-                      "midday": true,
-                      "evening": false,
-                      "night": true,
-                      "benefits": "Reduces pain",
-                      "side_effects": "Upsets my stomach",
-                      "start_date": "May 2021",
-                      "stop_date": "",
-                      "reason_stopped": "",
-                      "id": 5,
-                      "user_id": 21
-                      },
-                      {
-                      "name": "Claritin",
-                      "is_current": false,
-                      "dosage": "20 mg",
-                      "frequency": "daily",
-                      "date": "",
-                      "day": "",
-                      "morning": false,
-                      "midday": false,
-                      "evening": false,
-                      "night": true,
-                      "benefits": "Reduces allergy symptoms",
-                      "side_effects": "Makes me sleepy",
-                      "start_date": "Spring 2020",
-                      "stop_date": "May 2022",
-                      "reason_stopped": "Side effects",
-                      "id": 12,
-                      "user_id": 21
-                      }]
-                    }
-                  },
-                  "status": 200
-                }
-              }
-            }
+            "description": "successful"
           },
-          "401": {
-            "description": "Error: Unauthorized",
+          "400": {
+            "description": "no meds found",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/unauthenticated_user"
+                  "$ref": "#/components/schemas/no_meds"
                 }
-              }
-            }
-          }
-        },
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/meds_med"
               }
             }
           }
@@ -153,42 +75,27 @@
     },
     "/api/v1/medications/delete": {
       "delete": {
-        "summary": "Deletes a medication",
+        "summary": "delete medication",
         "tags": [
           "Medications"
         ],
-        "description": "Deletes a medication from a user's stored medications.",
+        "description": "Retrieves user's stored medications",
+        "security": [
+          {
+            "bearer_auth": []
+          }
+        ],
         "parameters": [],
         "responses": {
           "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "example": {
-                    "success": true,
-                    "payload": "Medication successfully deleted."
-                  },
-                  "status": 200
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Error: Unauthorized",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/unauthenticated_user"
-                }
-              }
-            }
+            "description": "successful"
           }
         },
         "requestBody": {
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/delete_med"
+                "$ref": "#/components/schemas/delete_medication"
               }
             }
           }
@@ -197,41 +104,27 @@
     },
     "/api/v1/medications/edit": {
       "patch": {
-        "summary": "Edits a medication",
+        "summary": "edit medication",
         "tags": [
           "Medications"
         ],
-        "description": "Updates an existing medication with edited values.",
+        "description": "Edits a stored medication",
+        "security": [
+          {
+            "bearer_auth": []
+          }
+        ],
         "parameters": [],
         "responses": {
           "200": {
-            "description": "successful",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "example": {
-                    "success": true,
-                    "payload": {
-                      "name": "Ibuprofen",
-                      "is_current": false,
-                      "dosage": "30 mg",
-                      "frequency": "daily",
-                      "date": "",
-                      "day": "",
-                      "morning": false,
-                      "midday": true,
-                      "evening": false,
-                      "night": false,
-                      "benefits": "Reduces pain",
-                      "side_effects": "Upsets my stomach",
-                      "start_date": "May 2021",
-                      "stop_date": "Spring 2023",
-                      "reason_stopped": "",
-                      "id": 5,
-                      "user_id": 21
-                    }
-                  }
-                }
+            "description": "successful"
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/edit_medication"
               }
             }
           }
@@ -255,20 +148,20 @@
                   "example": {
                     "success": true,
                     "payload": {
-                      "id": 88390,
-                      "email": "ahmed_waters@smitham-kessler.io",
-                      "first_name": "Virgilio",
-                      "last_name": "Tromp",
-                      "name": "Virgilio Tromp",
+                      "id": 88722,
+                      "email": "val.beer@schmidt-schroeder.io",
+                      "first_name": "Chas",
+                      "last_name": "MacGyver",
+                      "name": "Chas MacGyver",
                       "token": {
-                        "id": 62666,
-                        "created_at": "2023-04-13 23:41:46 UTC",
-                        "expiry": "2023-04-20 23:41:46 UTC",
+                        "id": 59329,
+                        "created_at": "2023-04-21 19:15:23 UTC",
+                        "expiry": "2023-04-28 19:15:23 UTC",
                         "ip": null,
                         "revocation_date": null,
-                        "updated_at": "2023-04-13 23:41:46 UTC",
-                        "user_id": 88390,
-                        "value": "1EWcjkjqwpNGAYY2nAPUX6VYiupmwZR7sV"
+                        "updated_at": "2023-04-21 19:15:23 UTC",
+                        "user_id": 88722,
+                        "value": "16xL8cofbzt9qKcacJ754tyqQC6w2WpgkU"
                       }
                     },
                     "status": 200
@@ -355,11 +248,11 @@
                 "schema": {
                   "example": {
                     "payload": {
-                      "id": 88390,
-                      "email": "ahmed_waters@smitham-kessler.io",
-                      "first_name": "Virgilio",
-                      "last_name": "Tromp",
-                      "name": "Virgilio Tromp"
+                      "id": 88722,
+                      "email": "val.beer@schmidt-schroeder.io",
+                      "first_name": "Chas",
+                      "last_name": "MacGyver",
+                      "name": "Chas MacGyver"
                     },
                     "status": 200
                   }
@@ -397,11 +290,11 @@
                   "example": {
                     "success": true,
                     "payload": {
-                      "id": 88390,
-                      "email": "ahmed_waters@smitham-kessler.io",
-                      "first_name": "Virgilio",
-                      "last_name": "Tromp",
-                      "name": "Virgilio Tromp"
+                      "id": 88722,
+                      "email": "val.beer@schmidt-schroeder.io",
+                      "first_name": "Chas",
+                      "last_name": "MacGyver",
+                      "name": "Chas MacGyver"
                     },
                     "status": 201
                   }
@@ -494,38 +387,38 @@
                 "properties": {
                   "id": {
                     "type": "integer",
-                    "example": 63907
+                    "example": 52198
                   },
                   "email": {
                     "type": "string",
-                    "example": "maren@schaden.net"
+                    "example": "kayleigh@koelpin.biz"
                   },
                   "first_name": {
                     "type": "string",
-                    "example": "Fleta"
+                    "example": "Deanne"
                   },
                   "last_name": {
                     "type": "string",
-                    "example": "Flatley"
+                    "example": "Lubowitz"
                   },
                   "name": {
                     "type": "string",
-                    "example": "Fleta Flatley"
+                    "example": "Deanne Lubowitz"
                   },
                   "token": {
                     "type": "object",
                     "properties": {
                       "id": {
                         "type": "integer",
-                        "example": 59562
+                        "example": 50763
                       },
                       "created_at": {
                         "type": "string",
-                        "example": "2023-04-13 23:41:46 UTC"
+                        "example": "2023-04-21 19:15:23 UTC"
                       },
                       "expiry": {
                         "type": "string",
-                        "example": "2023-04-20 23:41:46 UTC"
+                        "example": "2023-04-28 19:15:23 UTC"
                       },
                       "ip": {
                         "type": "any",
@@ -537,15 +430,15 @@
                       },
                       "updated_at": {
                         "type": "string",
-                        "example": "2023-04-13 23:41:46 UTC"
+                        "example": "2023-04-21 19:15:23 UTC"
                       },
                       "user_id": {
                         "type": "integer",
-                        "example": 63907
+                        "example": 52198
                       },
                       "value": {
                         "type": "string",
-                        "example": "1D3NUo2Msvy1YnQuQupPGgy6A7VsnkXB1B"
+                        "example": "148ePsUXygG6NUzretJGyVmM6FvstvoK3H"
                       }
                     }
                   }
@@ -558,15 +451,15 @@
             "properties": {
               "id": {
                 "type": "integer",
-                "example": 59562
+                "example": 50763
               },
               "created_at": {
                 "type": "string",
-                "example": "2023-04-13 23:41:46 UTC"
+                "example": "2023-04-21 19:15:23 UTC"
               },
               "expiry": {
                 "type": "string",
-                "example": "2023-04-20 23:41:46 UTC"
+                "example": "2023-04-28 19:15:23 UTC"
               },
               "ip": {
                 "type": "any",
@@ -578,15 +471,15 @@
               },
               "updated_at": {
                 "type": "string",
-                "example": "2023-04-13 23:41:46 UTC"
+                "example": "2023-04-21 19:15:23 UTC"
               },
               "user_id": {
                 "type": "integer",
-                "example": 63907
+                "example": 52198
               },
               "value": {
                 "type": "string",
-                "example": "1D3NUo2Msvy1YnQuQupPGgy6A7VsnkXB1B"
+                "example": "148ePsUXygG6NUzretJGyVmM6FvstvoK3H"
               }
             }
           },
@@ -670,23 +563,23 @@
             "properties": {
               "id": {
                 "type": "integer",
-                "example": 63907
+                "example": 52198
               },
               "email": {
                 "type": "string",
-                "example": "maren@schaden.net"
+                "example": "kayleigh@koelpin.biz"
               },
               "first_name": {
                 "type": "string",
-                "example": "Fleta"
+                "example": "Deanne"
               },
               "last_name": {
                 "type": "string",
-                "example": "Flatley"
+                "example": "Lubowitz"
               },
               "name": {
                 "type": "string",
-                "example": "Fleta Flatley"
+                "example": "Deanne Lubowitz"
               }
             }
           }
@@ -704,23 +597,23 @@
             "properties": {
               "id": {
                 "type": "integer",
-                "example": 63907
+                "example": 52198
               },
               "email": {
                 "type": "string",
-                "example": "maren@schaden.net"
+                "example": "kayleigh@koelpin.biz"
               },
               "first_name": {
                 "type": "string",
-                "example": "Fleta"
+                "example": "Deanne"
               },
               "last_name": {
                 "type": "string",
-                "example": "Flatley"
+                "example": "Lubowitz"
               },
               "name": {
                 "type": "string",
-                "example": "Fleta Flatley"
+                "example": "Deanne Lubowitz"
               }
             }
           }
@@ -743,87 +636,318 @@
           }
         }
       },
-      "delete_med": {
-        "type": "object", 
-        "properties": {
-          "user_id": { "type": "integer" },
-          "med_id": { "type": "integer" }
-        }
-      },
-      "edit_med": {
+      "no_meds": {
         "type": "object",
         "properties": {
-          "id": {"type": "integer", "nullable": false},
-          "name": {"type": "string", "nullable": false },
-          "dosage": {"type": "string", "nullable": true },
-          "frequency": {"type": "string", "nullable": true },
-          "date": {"type": "string", "nullable": true },
-          "day": {"type": "string", "nullable": true },
-          "benefits": {"type": "string", "nullable": true },
-          "side_effects": {"type": "string", "nullable": true },
-          "start_date": {"type": "string", "nullable": true },
-          "stop_date": {"type": "string", "nullable": true },
-          "reason_stopped": {"type": "string", "nullable": true },
-          "is_current": {"type": "boolean", "nullable": false },
-          "morning": {"type": "boolean", "nullable": true },
-          "midday": {"type": "boolean", "nullable": true },
-          "evening": {"type": "boolean", "nullable": true },
-          "night": {"type": "boolean", "nullable": true },
-          "user_id": {"type": "integer", "nullable": true}
-        }
-      }
-      "meds_med": {
-        "type": "object", 
-        "properties": {
-          "user_id": { "type": "integer" }
+          "success": {
+            "type": "boolean",
+            "example": false
+          },
+          "errors": {
+            "type": "string",
+            "example": "no medications found"
+          },
+          "status": {
+            "type": "integer",
+            "example": 400
+          }
         }
       },
-      "new_med": {
-        "type": "object", 
+      "new_medication": {
+        "type": "object",
         "properties": {
-          "name": {"type": "string", "nullable": false },
-          "dosage": {"type": "string", "nullable": true },
-          "frequency": {"type": "string", "nullable": true },
-          "date": {"type": "string", "nullable": true },
-          "day": {"type": "string", "nullable": true },
-          "benefits": {"type": "string", "nullable": true },
-          "side_effects": {"type": "string", "nullable": true },
-          "start_date": {"type": "string", "nullable": true },
-          "stop_date": {"type": "string", "nullable": true },
-          "reason_stopped": {"type": "string", "nullable": true },
-          "is_current": {"type": "boolean", "nullable": false },
-          "morning": {"type": "boolean", "nullable": true },
-          "midday": {"type": "boolean", "nullable": true },
-          "evening": {"type": "boolean", "nullable": true },
-          "night": {"type": "boolean", "nullable": true },
+          "name": {
+            "type": "string",
+            "nullable": false
+          },
+          "dosage": {
+            "type": "string",
+            "nullable": true
+          },
+          "frequency": {
+            "type": "string",
+            "nullable": true
+          },
+          "date": {
+            "type": "string",
+            "nullable": true
+          },
+          "day": {
+            "type": "string",
+            "nullable": true
+          },
+          "benefits": {
+            "type": "string",
+            "nullable": true
+          },
+          "side_effects": {
+            "type": "string",
+            "nullable": true
+          },
+          "start_date": {
+            "type": "string",
+            "nullable": true
+          },
+          "stop_date": {
+            "type": "string",
+            "nullable": true
+          },
+          "reason_stopped": {
+            "type": "string",
+            "nullable": true
+          },
+          "is_current": {
+            "type": "boolean",
+            "nullable": false
+          },
+          "morning": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "midday": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "evening": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "night": {
+            "type": "boolean",
+            "nullable": true
+          }
         }
       },
+      "new_medication_payload": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "payload": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "dosage": {
+              "type": "string"
+            },
+            "frequency": {
+              "type": "string"
+            },
+            "date": {
+              "type": "string"
+            },
+            "day": {
+              "type": "string"
+            },
+            "benefits": {
+              "type": "string"
+            },
+            "side_effects": {
+              "type": "string"
+            },
+            "start_date": {
+              "type": "string"
+            },
+            "stop_date": {
+              "type": "string"
+            },
+            "reason_stopped": {
+              "type": "string"
+            },
+            "is_current": {
+              "type": "boolean"
+            },
+            "created_at": {
+              "type": "string"
+            },
+            "updated_at": {
+              "type": "string"
+            },
+            "morning": {
+              "type": "boolean"
+            },
+            "midday": {
+              "type": "boolean"
+            },
+            "evening": {
+              "type": "boolean"
+            },
+            "night": {
+              "type": "boolean"
+            },
+            "user_id": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "meds_medication": {
+        "type": "string",
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "example": 52198
+          }
+        }
+      },
+      "meds_medication_payload": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": true
+          },
+          "payload": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "dosage": {
+              "type": "string"
+            },
+            "frequency": {
+              "type": "string"
+            },
+            "date": {
+              "type": "string"
+            },
+            "day": {
+              "type": "string"
+            },
+            "benefits": {
+              "type": "string"
+            },
+            "side_effects": {
+              "type": "string"
+            },
+            "start_date": {
+              "type": "string"
+            },
+            "stop_date": {
+              "type": "string"
+            },
+            "reason_stopped": {
+              "type": "string"
+            },
+            "is_current": {
+              "type": "boolean"
+            },
+            "created_at": {
+              "type": "string"
+            },
+            "updated_at": {
+              "type": "string"
+            },
+            "morning": {
+              "type": "boolean"
+            },
+            "midday": {
+              "type": "boolean"
+            },
+            "evening": {
+              "type": "boolean"
+            },
+            "night": {
+              "type": "boolean"
+            },
+            "user_id": {
+              "type": "integer"
+            }
+          }
+        }
+      },
+      "delete_medication": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "integer"
+          },
+          "med_id": {
+            "type": "integer"
+          }
+        }
+      },
+      "user_id": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "integer",
+            "example": 52198
+          }
+        }
+      },
+      "edit_medication": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": false
+          },
+          "dosage": {
+            "type": "string",
+            "nullable": true
+          },
+          "frequency": {
+            "type": "string",
+            "nullable": true
+          },
+          "date": {
+            "type": "string",
+            "nullable": true
+          },
+          "day": {
+            "type": "string",
+            "nullable": true
+          },
+          "benefits": {
+            "type": "string",
+            "nullable": true
+          },
+          "side_effects": {
+            "type": "string",
+            "nullable": true
+          },
+          "start_date": {
+            "type": "string",
+            "nullable": true
+          },
+          "stop_date": {
+            "type": "string",
+            "nullable": true
+          },
+          "reason_stopped": {
+            "type": "string",
+            "nullable": true
+          },
+          "is_current": {
+            "type": "boolean",
+            "nullable": false
+          },
+          "morning": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "midday": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "evening": {
+            "type": "boolean",
+            "nullable": true
+          },
+          "night": {
+            "type": "boolean",
+            "nullable": true
+          }
+        }
+      }
     }
-  },
-  "servers": [
-    {
-      "url": "http://{localHost}",
-      "variables": {
-        "localHost": {
-          "default": "localhost:3000"
-        }
-      }
-    },
-    {
-      "url": "https://{staging}",
-      "variables": {
-        "staging": {
-          "default": "set-staging-url-in-swagger_helper.rb"
-        }
-      }
-    },
-    {
-      "url": "https://{production}",
-      "variables": {
-        "production": {
-          "default": "set-production-url-in-swagger_helper.rb"
-        }
-      }
-    }
-  ]
+  }
 }

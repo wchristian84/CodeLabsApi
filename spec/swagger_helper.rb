@@ -6,6 +6,7 @@ require 'factory_bot'
 
 user = FactoryBot.create(:user)
 token = FactoryBot.create(:token, user_id: user.id)
+medication = FactoryBot.create(:medication, user_id: user.id)
 
 RSpec.configure do |config|
   # Specify a root folder where Swagger JSON files are generated
@@ -21,7 +22,7 @@ RSpec.configure do |config|
   # the root example_group in your specs, e.g. describe '...', swagger_doc: 'v2/swagger.json'
   config.swagger_docs = {
     "v1/swagger.yaml" => {
-      openapi: "3.0.1",
+      openapi: "3.0.0",
       info: {
         title: "Base API V1",
         version: "v1"
@@ -148,6 +149,13 @@ RSpec.configure do |config|
           ############ END_USER_SPEC SCHEMAS ############
           ################################################
           ########### MEDICATIONS_SPEC SCHEMAS ###########
+          no_meds: {
+            type: :object, properties: {
+              success: { type: :boolean, example: false },
+              errors: { type: :string, example: 'no medications found' },
+              status: { type: :integer, example: 400 }
+            }
+          },
           new_medication: {
             type: :object, properties: {
               name: {type: :string, nullable: false },
@@ -196,8 +204,8 @@ RSpec.configure do |config|
           },
 
           meds_medication: {
-            type: :object, properties: {
-              user_id: { type: :integer }
+            type: :string, properties: {
+              user_id: { type: :integer, example: user.id }
             }
           },
 
@@ -232,28 +240,50 @@ RSpec.configure do |config|
             type: :object, properties: {
               user_id: {type: :integer},
               med_id: {type: :integer}
-          }
-        },
-
-          edit_medication: {
-            type: :object, properties: {
-              name: {type: :string, nullable: false },
-              dosage: {type: :string, nullable: true },
-              frequency: {type: :string, nullable: true },
-              date: {type: :string, nullable: true },
-              day: {type: :string, nullable: true },
-              benefits: {type: :string, nullable: true },
-              side_effects: {type: :string, nullable: true },
-              start_date: {type: :string, nullable: true },
-              stop_date: {type: :string, nullable: true },
-              reason_stopped: {type: :string, nullable: true },
-              is_current: {type: :boolean, nullable: false },
-              morning: {type: :boolean, nullable: true },
-              midday: {type: :boolean, nullable: true },
-              evening: {type: :boolean, nullable: true },
-              night: {type: :boolean, nullable: true },
-              }
             }
+          },
+
+          delete_failed: {
+            type: :object, properties: {
+              success: { type: :boolean, example: false },
+              errors: { type: :string, example: 'Error deleting medication' },
+              status: { type: :integer, example: 400 }
+            }
+          },
+        
+          user_id: {
+            type: :object, properties: {
+              user_id: {type: :integer, example: user.id}
+            }
+          },
+
+            edit_medication: {
+              type: :object, properties: {
+                name: {type: :string, nullable: false },
+                dosage: {type: :string, nullable: true },
+                frequency: {type: :string, nullable: true },
+                date: {type: :string, nullable: true },
+                day: {type: :string, nullable: true },
+                benefits: {type: :string, nullable: true },
+                side_effects: {type: :string, nullable: true },
+                start_date: {type: :string, nullable: true },
+                stop_date: {type: :string, nullable: true },
+                reason_stopped: {type: :string, nullable: true },
+                is_current: {type: :boolean, nullable: false },
+                morning: {type: :boolean, nullable: true },
+                midday: {type: :boolean, nullable: true },
+                evening: {type: :boolean, nullable: true },
+                night: {type: :boolean, nullable: true },
+              }
+            },
+
+            edit_failed: {
+              type: :object, properties: {
+                success: { type: :boolean, example: false },
+                errors: { type: :string, example: 'Error updating medication' },
+                status: { type: :integer, example: 400 }
+              }
+            },
           }
           ########### END MEDICATIONS_SPEC SCHEMAS ###########
         }
