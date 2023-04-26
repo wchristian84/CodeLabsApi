@@ -20,8 +20,7 @@ module Api
       end
 
       def meds
-        render_error(errors: "Error retrieving medications", status: 400) unless params[:user_id] == @current_user.id
-        result = PracticeApi::Medications.return_meds(params[:user_id])
+        result = PracticeApi::Medications.return_meds(@current_user.id)
         render_error(errors: "no medications found", status: 400) and return unless result.success?
       
         render_success(payload: result.payload, status: 200)

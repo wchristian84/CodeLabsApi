@@ -64,10 +64,9 @@ module PracticeApi
 
     def self.return_meds(user_id)
     
-      user = User.find_by(id: user_id)
-      user_meds = user.medications.all
+      user_meds = Medication.find_by(user_id: user_id)
       
-      return ServiceContract.error("Error retrieving medications") unless user_meds.size > 1
+      return ServiceContract.error("Error retrieving medications") unless user_meds
       ServiceContract.success(user_meds)
     end
   end
