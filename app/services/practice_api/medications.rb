@@ -27,16 +27,18 @@ module PracticeApi
       ServiceContract.success([medication])
     end
 
-    def self.destroy(params)
+    def self.destroy(params, current_user_id)
+      
+      return ServiceContract.error('Error deleting medication') unless Medication.find(params[:med_id])
       medication = Medication.find(params[:med_id])
-      if medication
-        return ServiceContract.error('Error deleting medication') unless medication.destroy
-        ServiceContract.success(payload: "Medication successfully deleted")
-      end
+      return ServiceContract.error('Error deleting medication') unless current_user_id == medication.user_id
+      medication.destroy!
+      return ServiceContract.success(payload: "Medication successfully deleted")
     end
 
-    def self.edit_med(params)
+    def self.edit_med(params, current_user_id)
       editedMed = Medication.find(params[:id])
+      return ServiceContract.error('invalid user') unless editedMed.user_id == current_user_id
       if editedMed
         editedMed.update(
           name: params[:name],
@@ -67,7 +69,7 @@ module PracticeApi
       user = User.find_by(id: user_id)
       user_meds = user.medications.all
       
-      return ServiceContract.error("Error retrieving medications") unless user_meds
+      return ServiceContract.error("Error retrieving medications") unless user_meds.size > 0
       ServiceContract.success(user_meds)
     end
   end

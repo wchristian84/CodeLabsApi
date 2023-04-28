@@ -163,11 +163,13 @@ RSpec.describe 'api/v1/medications', type: :request do
         end
         run_test!
       end
-    end
     response "400", "Error deleting medication" do
-      to_delete = FactoryBot.create(:medication, user_id: token.user_id)
-      let(:Authorization) { "Bearer #{token.value}" }
-      let(:delete_medication) { {user_id: no_meds_user.id, med_id: to_delete.id} }
+      let(:Authorization) { "Bearer " + no_meds_token.value }
+      let(:delete_medication) { {med_id: medication.id } }
+      it 'returns a valid 400 response' do |example|
+        assert_response_matches_metadata(example.metadata)
+      end
+      
       after do |example|
         content = example.metadata[:response][:content] || {}
         example_spec = {
@@ -183,6 +185,7 @@ RSpec.describe 'api/v1/medications', type: :request do
       end
       schema '$ref' => '#/components/schemas/delete_failed'
       run_test!
+    end
     end
   end
 
@@ -226,9 +229,9 @@ RSpec.describe 'api/v1/medications', type: :request do
         end
         run_test!
       end
-    end
+    
     response "400", "Error updating medication" do
-      let(:Authorization) { "Bearer " + token.value }
+      let(:Authorization) { "Bearer " + no_meds_token.value }
       let(:edit_medication) { {
         id: medication.id,
         name: "updated name", 
@@ -264,6 +267,6 @@ RSpec.describe 'api/v1/medications', type: :request do
       schema '$ref' => '#/components/schemas/edit_failed'
       run_test!
     end
-  
+  end
   end
 end

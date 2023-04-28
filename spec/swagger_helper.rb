@@ -238,7 +238,6 @@ RSpec.configure do |config|
 
           delete_medication: {
             type: :object, properties: {
-              user_id: {type: :integer},
               med_id: {type: :integer}
             }
           },
