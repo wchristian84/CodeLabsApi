@@ -89,6 +89,16 @@
         "responses": {
           "200": {
             "description": "successful"
+          },
+          "400": {
+            "description": "Error deleting medication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/delete_failed"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -118,6 +128,16 @@
         "responses": {
           "200": {
             "description": "successful"
+          },
+          "400": {
+            "description": "Error updating medication",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/edit_failed"
+                }
+              }
+            }
           }
         },
         "requestBody": {
@@ -148,20 +168,20 @@
                   "example": {
                     "success": true,
                     "payload": {
-                      "id": 88722,
-                      "email": "val.beer@schmidt-schroeder.io",
-                      "first_name": "Chas",
-                      "last_name": "MacGyver",
-                      "name": "Chas MacGyver",
+                      "id": 93326,
+                      "email": "cecila@bradtke-fay.name",
+                      "first_name": "Matilda",
+                      "last_name": "Kohler",
+                      "name": "Matilda Kohler",
                       "token": {
-                        "id": 59329,
-                        "created_at": "2023-04-21 19:15:23 UTC",
-                        "expiry": "2023-04-28 19:15:23 UTC",
+                        "id": 56930,
+                        "created_at": "2023-05-07 16:46:33 UTC",
+                        "expiry": "2023-05-14 16:46:33 UTC",
                         "ip": null,
                         "revocation_date": null,
-                        "updated_at": "2023-04-21 19:15:23 UTC",
-                        "user_id": 88722,
-                        "value": "16xL8cofbzt9qKcacJ754tyqQC6w2WpgkU"
+                        "updated_at": "2023-05-07 16:46:33 UTC",
+                        "user_id": 93326,
+                        "value": "14B81oje3ZrPHZussnNuEixhqywBZSo9XG"
                       }
                     },
                     "status": 200
@@ -248,11 +268,11 @@
                 "schema": {
                   "example": {
                     "payload": {
-                      "id": 88722,
-                      "email": "val.beer@schmidt-schroeder.io",
-                      "first_name": "Chas",
-                      "last_name": "MacGyver",
-                      "name": "Chas MacGyver"
+                      "id": 93326,
+                      "email": "cecila@bradtke-fay.name",
+                      "first_name": "Matilda",
+                      "last_name": "Kohler",
+                      "name": "Matilda Kohler"
                     },
                     "status": 200
                   }
@@ -290,11 +310,11 @@
                   "example": {
                     "success": true,
                     "payload": {
-                      "id": 88722,
-                      "email": "val.beer@schmidt-schroeder.io",
-                      "first_name": "Chas",
-                      "last_name": "MacGyver",
-                      "name": "Chas MacGyver"
+                      "id": 93326,
+                      "email": "cecila@bradtke-fay.name",
+                      "first_name": "Matilda",
+                      "last_name": "Kohler",
+                      "name": "Matilda Kohler"
                     },
                     "status": 201
                   }
@@ -387,38 +407,38 @@
                 "properties": {
                   "id": {
                     "type": "integer",
-                    "example": 52198
+                    "example": 80393
                   },
                   "email": {
                     "type": "string",
-                    "example": "kayleigh@koelpin.biz"
+                    "example": "mao@jacobs-towne.biz"
                   },
                   "first_name": {
                     "type": "string",
-                    "example": "Deanne"
+                    "example": "Mitchel"
                   },
                   "last_name": {
                     "type": "string",
-                    "example": "Lubowitz"
+                    "example": "Bergnaum"
                   },
                   "name": {
                     "type": "string",
-                    "example": "Deanne Lubowitz"
+                    "example": "Mitchel Bergnaum"
                   },
                   "token": {
                     "type": "object",
                     "properties": {
                       "id": {
                         "type": "integer",
-                        "example": 50763
+                        "example": 94356
                       },
                       "created_at": {
                         "type": "string",
-                        "example": "2023-04-21 19:15:23 UTC"
+                        "example": "2023-05-07 16:46:32 UTC"
                       },
                       "expiry": {
                         "type": "string",
-                        "example": "2023-04-28 19:15:23 UTC"
+                        "example": "2023-05-14 16:46:32 UTC"
                       },
                       "ip": {
                         "type": "any",
@@ -430,15 +450,15 @@
                       },
                       "updated_at": {
                         "type": "string",
-                        "example": "2023-04-21 19:15:23 UTC"
+                        "example": "2023-05-07 16:46:32 UTC"
                       },
                       "user_id": {
                         "type": "integer",
-                        "example": 52198
+                        "example": 80393
                       },
                       "value": {
                         "type": "string",
-                        "example": "148ePsUXygG6NUzretJGyVmM6FvstvoK3H"
+                        "example": "1Bj9HD38j5RMVP236zgRfA61vru2uFxMDL"
                       }
                     }
                   }
@@ -451,15 +471,15 @@
             "properties": {
               "id": {
                 "type": "integer",
-                "example": 50763
+                "example": 94356
               },
               "created_at": {
                 "type": "string",
-                "example": "2023-04-21 19:15:23 UTC"
+                "example": "2023-05-07 16:46:32 UTC"
               },
               "expiry": {
                 "type": "string",
-                "example": "2023-04-28 19:15:23 UTC"
+                "example": "2023-05-14 16:46:32 UTC"
               },
               "ip": {
                 "type": "any",
@@ -471,15 +491,15 @@
               },
               "updated_at": {
                 "type": "string",
-                "example": "2023-04-21 19:15:23 UTC"
+                "example": "2023-05-07 16:46:32 UTC"
               },
               "user_id": {
                 "type": "integer",
-                "example": 52198
+                "example": 80393
               },
               "value": {
                 "type": "string",
-                "example": "148ePsUXygG6NUzretJGyVmM6FvstvoK3H"
+                "example": "1Bj9HD38j5RMVP236zgRfA61vru2uFxMDL"
               }
             }
           },
@@ -563,23 +583,23 @@
             "properties": {
               "id": {
                 "type": "integer",
-                "example": 52198
+                "example": 80393
               },
               "email": {
                 "type": "string",
-                "example": "kayleigh@koelpin.biz"
+                "example": "mao@jacobs-towne.biz"
               },
               "first_name": {
                 "type": "string",
-                "example": "Deanne"
+                "example": "Mitchel"
               },
               "last_name": {
                 "type": "string",
-                "example": "Lubowitz"
+                "example": "Bergnaum"
               },
               "name": {
                 "type": "string",
-                "example": "Deanne Lubowitz"
+                "example": "Mitchel Bergnaum"
               }
             }
           }
@@ -597,23 +617,23 @@
             "properties": {
               "id": {
                 "type": "integer",
-                "example": 52198
+                "example": 80393
               },
               "email": {
                 "type": "string",
-                "example": "kayleigh@koelpin.biz"
+                "example": "mao@jacobs-towne.biz"
               },
               "first_name": {
                 "type": "string",
-                "example": "Deanne"
+                "example": "Mitchel"
               },
               "last_name": {
                 "type": "string",
-                "example": "Lubowitz"
+                "example": "Bergnaum"
               },
               "name": {
                 "type": "string",
-                "example": "Deanne Lubowitz"
+                "example": "Mitchel Bergnaum"
               }
             }
           }
@@ -791,7 +811,7 @@
         "properties": {
           "user_id": {
             "type": "integer",
-            "example": 52198
+            "example": 80393
           }
         }
       },
@@ -866,11 +886,25 @@
       "delete_medication": {
         "type": "object",
         "properties": {
-          "user_id": {
-            "type": "integer"
-          },
           "med_id": {
             "type": "integer"
+          }
+        }
+      },
+      "delete_failed": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": false
+          },
+          "errors": {
+            "type": "string",
+            "example": "Error deleting medication"
+          },
+          "status": {
+            "type": "integer",
+            "example": 400
           }
         }
       },
@@ -879,7 +913,7 @@
         "properties": {
           "user_id": {
             "type": "integer",
-            "example": 52198
+            "example": 80393
           }
         }
       },
@@ -945,6 +979,23 @@
           "night": {
             "type": "boolean",
             "nullable": true
+          }
+        }
+      },
+      "edit_failed": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "boolean",
+            "example": false
+          },
+          "errors": {
+            "type": "string",
+            "example": "Error updating medication"
+          },
+          "status": {
+            "type": "integer",
+            "example": 400
           }
         }
       }
